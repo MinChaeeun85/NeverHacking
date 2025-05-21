@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>보안 위키</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="goHome()">🔐 보안위키</div>
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="보안 용어 검색..."
+        onkeydown="handleKey(event)">
+    </div>
+    <div class="add-button">
+      <a href="{{ url_for('add_page') }}">➕ 용어 추가</a>
+
+    </div>
+  </header>
+
+  <div id="main-container">
+    <nav id="category">
+      <h3>카테고리</h3>
+      <ul>
+        <li onclick="filterCategory('web')">웹 보안</li>
+        <li onclick="filterCategory('network')">네트워크 보안</li>
+        <li onclick="filterCategory('system')">시스템 보안</li>
+      </ul>
+      <h4>추천 용어</h4>
+      <ul>
+        <li onclick="showTerm('ZeroDay')">Zero-day</li>
+        <li onclick="showTerm('MITM')">MITM</li>
+        <li onclick="showTerm('RCE')">RCE</li>
+        <li onclick="showTerm('WAF')">WAF</li>
+        <!-- 사용자 추가 용어는 script.js에서 자동 추가됨 -->
+      </ul>
+    </nav>
+
+    <section id="content">
+      <h1>보안 위키에 오신 것을 환영합니다</h1>
+      <p>왼쪽 카테고리 또는 추천 용어를 클릭해보세요.</p>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>보안 용어 추가</title>
+</head>
+<body>
+  <h1>🔐 보안 용어 추가하기</h1>
+
+  <form id="addTermForm">
+    <label for="title">📘 용어 이름:</label><br>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="author">👤 작성자 이름:</label><br>
+    <input type="text" id="author" name="author" required><br><br>
+
+    <label for="category">🔖 카테고리:</label><br>
+    <select id="category" name="category" required>
+      <option value="web">웹 보안</option>
+      <option value="network">네트워크 보안</option>
+      <option value="system">시스템 보안</option>
+      <option value="기타">기타</option>
+    </select><br><br>
+
+    <label for="content">📄 용어 설명:</label><br>
+    <textarea id="content" name="content" rows="5" cols="50" required></textarea><br><br>
+
+    <button type="submit">✅ 저장</button>
+  </form>
+
+  <script>
+    document.getElementById("addTermForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const author = document.getElementById("author").value.trim();
+      const category = document.getElementById("category").value;
+
+      if (!title || !content || !author || !category) {
+        alert("모든 항목을 입력해주세요.");
+        return;
+      }
+
+      const newTerm = { title, content, author, category, lastEditor: author };
+      const storedTerms = JSON.parse(localStorage.getItem("terms") || "[]");
+
+      if (storedTerms.find(t => t.title === title)) {
+        alert("이미 존재하는 용어입니다.");
+        return;
+      }
+
+      storedTerms.push(newTerm);
+      localStorage.setItem("terms", JSON.stringify(storedTerms));
+
+      alert("✅ 용어가 저장되었습니다!");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
